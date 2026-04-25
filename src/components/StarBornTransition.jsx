@@ -68,7 +68,7 @@ export default function StarBornTransition({ onComplete }) {
               background: 'white',
               boxShadow: '0 0 6px 2px rgba(255,255,255,0.6)',
               position: 'relative',
-              zIndex: 1,
+              zIndex: 1000,
             }}
           />
         </div>
