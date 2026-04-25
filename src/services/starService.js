@@ -17,7 +17,7 @@ async function getNextStarId() {
         }
         // if it's greater, the Doc would update it's total +1
         const next = counterDoc.data().total+1
-        transaction.update(counterRef, {total: next})
+        transaction.update(starCount, {total: next})
         return next
     })
 }

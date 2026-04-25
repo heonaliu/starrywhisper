@@ -79,7 +79,7 @@ export default function UniversePage() {
                 disabled={save}
                 className="flex-1 py-2.5 rounded-xl bg-white text-black text-sm cursor-pointer"
               >
-                {save ? "..." : cast}
+                {save ? "..." : "cast"}
               </button>
             </div>
           </div>
