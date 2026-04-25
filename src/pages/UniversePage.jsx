@@ -43,7 +43,7 @@ export default function UniversePage() {
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
       <button
         onClick={() => setShowForm(true)}
-        className="absolute top-8 left-8 w-14 h-14 rounded-full bg-white text-black text-2xl flex items-center justify-center cursor-pointer"
+        className="absolute top-8 left-8 w-10 h-10 rounded-full bg-white text-black text-2xl flex items-center justify-center cursor-pointer"
       >
         +
       </button>
