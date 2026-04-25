@@ -24,6 +24,12 @@ async function getNextStarId() {
 
 export async function addUserStar(uid, { title, desc, achievement, location }) {
   const starId = await getNextStarId()
+  if (title == "") {
+    title = "mysterious dream..."
+  }
+  if (desc == "") {
+    desc = "a secret backstory..."
+  }
   const star = { star_id: starId, x: Math.random(), y: Math.random(), title, desc, achievement, location, createdAt: serverTimestamp() }
   await setDoc(doc(db, 'users', uid, 'stars', String(starId)), star)
   return star
@@ -32,6 +38,12 @@ export async function addUserStar(uid, { title, desc, achievement, location }) {
 export async function addAnonymousStar({ title, desc, achievement, location }) {
     const starId = await getNextStarId()
     const star = { star_id: starId, x: Math.random(), y: Math.random(), title, desc, achievement, location, createdAt: serverTimestamp() }
+    if (title == "") {
+    title = "mysterious dream..."
+  }
+  if (desc == "") {
+    desc = "a secret backstory..."
+  }
   await setDoc(doc(db, 'anonymous_stars', String(starId)), star)
   return star
 }
