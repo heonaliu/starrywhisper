@@ -41,7 +41,7 @@ export default function UniversePage() {
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
-      <p className="absolute top-6 left-6 text-white/30 text-xs">
+      <p className="absolute top-6 center-6 text-white/30 text-xs">
         {user ? `signed in as ${user.displayName}` : "anonymous"}
       </p>
       <button
@@ -56,10 +56,14 @@ export default function UniversePage() {
             <p className="text-white rounded-xl text-black text-lg">
               Cast a dream
             </p>
-
+            <p className="text-white/30 text-xs mb-4">
+              {user ? "saving to your account" : "saving anonymously"}
+            </p>
             <input
               type="text"
               placeholder="What's your dream?"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
             />
 
@@ -71,10 +75,11 @@ export default function UniversePage() {
                 cancel
               </button>
               <button
-                onClick={() => setShowForm(false)}
+                onClick={handleCast}
+                disabled={save}
                 className="flex-1 py-2.5 rounded-xl bg-white text-black text-sm cursor-pointer"
               >
-                cast
+                {save ? "..." : cast}
               </button>
             </div>
           </div>
