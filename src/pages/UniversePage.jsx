@@ -1,67 +1,66 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { addUserStar, addAnonymousStar, listenToAllStars } from "../services/starService";
+import {
+  addUserStar,
+  addAnonymousStar,
+  listenToAllStars,
+} from "../services/starService";
 import StarBornTransition from "../components/StarBornTransition";
+import { SelectStar } from "../components/SelectStar";
+import { AddDream } from "../components/AddDream";
+
+const GLOW = {
+  1: "rgba(255,255,255,0.15)",
+  2: "rgba(255,255,255,0.35)",
+  3: "rgba(255,255,255,0.55)",
+  4: "rgba(255,255,255,0.75)",
+  5: "rgba(255,255,255,1.0)",
+};
+
 export default function UniversePage() {
   //this line will tell us if we have an existing user logged in or not
   const { user } = useAuth();
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
   const [save, setSave] = useState(false);
   // save to which database: user or anon ^
   const [showTransition, setShowTransition] = useState(false);
-  const [stars, setStars] = useState([])
-  const [selected, setSelected] = useState(null)
+  const [stars, setStars] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-// this is for all stars:
+  // this is for all stars:
   useEffect(() => {
     const unsub = listenToAllStars((allStars) => {
-      setStars(allStars)
-    })
-    return () => unsub()
-
-  }, [])
-
-
-  async function handleCast() {
-    if (!title.trim() && !desc.trim()) return; // basically if there's nothing in the title return nothing
-
-    setSave(true);
-    try {
-      if (user) {
-        //basically if user exists we use the addUserStar else we use addAnonymousStar
-        if (!title.trim()) {
-          setTitle("");
-        } else if (!desc.trim()) {
-          setDesc("");
-        }
-        await addUserStar(user.uid, {
-          title,
-          desc,
-          achievement: 1,
-          location: "North America",
-        });
-      } else {
-        await addAnonymousStar({
-          title,
-          desc,
-          achievement: 1,
-          location: "North America",
-        });
-      }
-      setShowForm(false);
-      setShowTransition(true);
-      setTitle("");
-      setDesc("");
-    } catch (err) {
-      console.log(err);
-    }
-    setSave(false);
-  }
+      setStars(allStars);
+    });
+    return () => unsub();
+  }, []);
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
+      {stars.map((star) => (
+        <button
+          key={star.star_id}
+          onClick={() => setSelected(star)}
+          style={{
+            position: "absolute",
+            left: `${star.x * 100}%`,
+            top: `${star.y * 100}%`,
+            transform: "translate(-50%, -50%)",
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background: "white",
+            opacity: (star.achievement || 1) * 0.18 + 0.1,
+            boxShadow: `0 0 ${(star.achievement || 1) * 4}px ${(star.achievement || 1) * 2}px ${GLOW[star.achievement || 1]}`,
+            border: "none",
+            cursor: "pointer",
+            padding: 0,
+            zIndex: 100,
+          }}
+        />
+      ))}
+      {selected && <SelectStar selected={selected} />}
+
       <p className="absolute top-6 center-6 text-white/30 text-xs">
         {user ? `signed in as ${user.displayName}` : "anonymous"}
       </p>
@@ -72,49 +71,17 @@ export default function UniversePage() {
         +
       </button>
       {showForm && (
-        <div className="absolute bg-black/70 flex items-center justify-center">
-          <div className="bg-[#0a0a0f] border border-white/10 rounded-2xl p-6 w-80">
-            <p className="text-white rounded-xl text-black text-lg">
-              Cast a dream
-            </p>
-            <p className="text-white/30 text-xs mb-4">
-              {user ? "saving to your account" : "saving anonymously"}
-            </p>
-            <input
-              type="text"
-              placeholder="What's your dream?"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
-            />
-
-            <input
-              type="text"
-              placeholder="What's your story?"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
-            />
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowForm(false)}
-                className="flex-1 py-2.5 rounded-xl text-white/40 text-sm border border-white/10 cursor-pointer"
-              >
-                cancel
-              </button>
-              <button
-                onClick={handleCast}
-                disabled={save}
-                className="flex-1 py-2.5 rounded-xl bg-white text-black text-sm cursor-pointer"
-              >
-                {save ? "..." : "cast"}
-              </button>
-            </div>
-          </div>
-        </div>
+        <AddDream
+          onClose={() => setShowForm(false)}
+          onSuccess={() => {
+            setShowForm(false);
+            setShowTransition(true);
+          }}
+        />
       )}
-      {showTransition && (<StarBornTransition onComplete={() => setShowTransition(false)} />)}
+      {showTransition && (
+        <StarBornTransition onComplete={() => setShowTransition(false)} />
+      )}
     </div>
   );
 }
