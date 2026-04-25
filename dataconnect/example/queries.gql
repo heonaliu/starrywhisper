@@ -1,0 +1,38 @@
+query AllDreams @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves public dream information.") {
+  dreams {
+    id
+    content
+    mood
+    createdAt
+    tags
+  }
+}
+
+mutation CreateMyDream($content: String!, $mood: String, $tags: [String!]) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it creates a dream associated with the current user.") {
+  dream_insert(data: {
+    content: $content,
+    mood: $mood,
+    tags: $tags,
+    createdAt_expr: "request.time"
+  })
+}
+
+mutation StarADream($dreamId: UUID!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it stars a dream for the current user.") {
+  starredDream_insert(data: {
+    dreamId: $dreamId,
+    userId_expr: "auth.uid",
+    createdAt_expr: "request.time"
+  })
+}
+
+query MyDreams @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it retrieves dreams belonging to the current user.") {
+  users(where: {id: {eq_expr: "auth.uid"}}) {
+    id
+    dreams_via_StarredDream {
+      id
+      content
+      mood
+      createdAt
+    }
+  }
+}

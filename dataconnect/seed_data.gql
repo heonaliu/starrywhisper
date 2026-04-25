@@ -1,0 +1,68 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This is a seed mutation and should only be run by authenticated users. This operation is safe to expose to all logged in users.") {
+  user_insertMany(data: [
+    {
+      id: "b450e840-e29b-41d4-a716-446655440000",
+      createdAt: "2023-01-01T10:00:00Z",
+      lastActiveAt: "2024-01-01T10:00:00Z"
+    },
+    {
+      id: "c789f012-e29b-41d4-a716-446655440001",
+      createdAt: "2023-02-01T11:00:00Z",
+      lastActiveAt: "2024-02-01T11:00:00Z"
+    }
+  ])
+  dream_insertMany(data: [
+    {
+      id: "d123e456-e29b-41d4-a716-446655440002",
+      content: "A vivid dream about flying over a futuristic city.",
+      createdAt: "2023-03-01T12:00:00Z",
+      tags: ["flying", "city", "future"],
+      mood: "excited"
+    },
+    {
+      id: "e789f012-e29b-41d4-a716-446655440003",
+      content: "A peaceful dream in a forest with glowing trees.",
+      createdAt: "2023-04-01T13:00:00Z",
+      tags: ["forest", "nature", "peace"],
+      mood: "calm"
+    },
+    {
+      id: "f345g678-e29b-41d4-a716-446655440004",
+      content: "A surreal dream about talking animals and solving a mystery.",
+      createdAt: "2023-05-01T14:00:00Z",
+      tags: ["animals", "mystery", "surreal"],
+      mood: "curious"
+    }
+  ])
+  starredDream_insertMany(data: [
+    {
+      userId: "b450e840-e29b-41d4-a716-446655440000",
+      dreamId: "d123e456-e29b-41d4-a716-446655440002",
+      createdAt: "2023-03-02T10:00:00Z"
+    },
+    {
+      userId: "c789f012-e29b-41d4-a716-446655440001",
+      dreamId: "e789f012-e29b-41d4-a716-446655440003",
+      createdAt: "2023-04-02T11:00:00Z"
+    },
+    {
+      userId: "b450e840-e29b-41d4-a716-446655440000",
+      dreamId: "f345g678-e29b-41d4-a716-446655440004",
+      createdAt: "2023-05-02T12:00:00Z"
+    }
+  ])
+  report_insertMany(data: [
+    {
+      dreamId: "d123e456-e29b-41d4-a716-446655440002",
+      reason: "Inappropriate Content",
+      createdAt: "2023-03-03T10:00:00Z",
+      description: "This dream contained content that made me uncomfortable."
+    },
+    {
+      dreamId: "e789f012-e29b-41d4-a716-446655440003",
+      reason: "Spam",
+      createdAt: "2023-04-03T11:00:00Z",
+      description: "Looks like a bot generated this dream."
+    }
+  ])
+}

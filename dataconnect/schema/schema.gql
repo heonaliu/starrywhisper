@@ -1,0 +1,24 @@
+type Dream @table {
+  content: String!
+  createdAt: Timestamp!
+  tags: [String]
+  mood: String
+}
+
+type User @table {
+  createdAt: Timestamp!
+  lastActiveAt: Timestamp
+}
+
+type StarredDream @table(key: ["user", "dream"]) {
+  user: User!
+  dream: Dream!
+  createdAt: Timestamp!
+}
+
+type Report @table {
+  dream: Dream!
+  reason: String!
+  createdAt: Timestamp!
+  description: String
+}

@@ -59,7 +59,7 @@ export default function UniversePage() {
           }}
         />
       ))}
-      {selected && <SelectStar selected={selected} />}
+      {selected && <SelectStar selected={selected} setSelected = {setSelected} />}
 
       <p className="absolute top-6 center-6 text-white/30 text-xs">
         {user ? `signed in as ${user.displayName}` : "anonymous"}
