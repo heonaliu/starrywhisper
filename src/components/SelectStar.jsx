@@ -1,4 +1,5 @@
-export function SelectStar({ selected }) {
+export function SelectStar({ selected, setSelected }) {
+  console.log(selected);
     return (
         <div
           className="absolute inset-0 bg-black/60 z-30 flex items-center justify-center"

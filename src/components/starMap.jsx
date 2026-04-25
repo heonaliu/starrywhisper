@@ -7,7 +7,7 @@ import {
 } from "react-svg-pan-zoom";
 import { listenToAllStars } from "../services/starService";
 
-export function StarMap() {
+export function StarMap({onStarSelect}) {
     const Viewer = useRef(null);
     const [tool, setTool] = useState(TOOL_AUTO);
     const [value, setValue] = useState(INITIAL_VALUE);
@@ -85,8 +85,7 @@ export function StarMap() {
                     stroke={GLOW[star.achievement || 1]}
                     strokeWidth={size * 0.6}
                     onClick={() => {
-                        console.log("Star Clicked")
-                        setSelected(star);
+                        onStarSelect(star);
                     }}
                     style={{ cursor: "default" }}
                 />
