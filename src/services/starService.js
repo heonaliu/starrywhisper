@@ -47,8 +47,12 @@ export async function addUserStar(uid, { title, desc, achievement, location }) {
     achievement,
     location,
     createdAt: serverTimestamp(),
+    uid,
+    isAnon: false,
   };
   await setDoc(doc(db, "users", uid, "stars", String(starId)), star);
+  await setDoc(doc(db, "all_stars", String(starId)), star);
+  //cumulative of all stars
   return star;
 }
 
@@ -63,6 +67,8 @@ export async function addAnonymousStar({ title, desc, achievement, location }) {
     achievement,
     location,
     createdAt: serverTimestamp(),
+    uid: null,
+    isAnon: true,
   };
   if (title == "") {
     title = "mysterious dream...";
@@ -71,6 +77,7 @@ export async function addAnonymousStar({ title, desc, achievement, location }) {
     desc = "a secret backstory...";
   }
   await setDoc(doc(db, "anonymous_stars", String(starId)), star);
+  await setDoc(doc(db, "all_stars", String(starId)), star);
   return star;
 }
 
@@ -89,6 +96,13 @@ export function listenToAnonymousStars(callback) {
     callback(snapshot.docs.map((d) => d.data())),
   );
   //finds the anonymous user stars onSnapshot
+}
+
+export function listenToAllStars(callback) {
+  const q = query(collection(db, "all_stars"), orderBy("star_id"));
+  return onSnapshot(q, (snapshot) =>
+    callback(snapshot.docs.map((d) => d.data())),
+  );
 }
 
 export async function updateUserStar(uid, starId, updates) {

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { addUserStar, addAnonymousStar } from "../services/starService";
+import { addUserStar, addAnonymousStar, listenToAllStars } from "../services/starService";
 import StarBornTransition from "../components/StarBornTransition";
 export default function UniversePage() {
   //this line will tell us if we have an existing user logged in or not
@@ -11,6 +11,18 @@ export default function UniversePage() {
   const [save, setSave] = useState(false);
   // save to which database: user or anon ^
   const [showTransition, setShowTransition] = useState(false);
+  const [stars, setStars] = useState([])
+  const [selected, setSelected] = useState(null)
+
+// this is for all stars:
+  useEffect(() => {
+    const unsub = listenToAllStars((allStars) => {
+      setStars(allStars)
+    })
+    return () => unsub()
+
+  }, [])
+
 
   async function handleCast() {
     if (!title.trim() && !desc.trim()) return; // basically if there's nothing in the title return nothing
