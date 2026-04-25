@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function UniversePage() {
+
   const [showForm, setShowForm] = useState(false);
 
   return (
