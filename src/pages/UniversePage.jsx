@@ -8,6 +8,7 @@ import {
 import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
 import { AddDream } from "../components/AddDream";
+import { StarMap } from "../components/starMap";
 
 const GLOW = {
   1: "rgba(255,255,255,0.15)",
@@ -37,28 +38,7 @@ export default function UniversePage() {
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
-      {stars.map((star) => (
-        <button
-          key={star.star_id}
-          onClick={() => setSelected(star)}
-          style={{
-            position: "absolute",
-            left: `${star.x * 100}%`,
-            top: `${star.y * 100}%`,
-            transform: "translate(-50%, -50%)",
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            background: "white",
-            opacity: (star.achievement || 1) * 0.18 + 0.1,
-            boxShadow: `0 0 ${(star.achievement || 1) * 4}px ${(star.achievement || 1) * 2}px ${GLOW[star.achievement || 1]}`,
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            zIndex: 100,
-          }}
-        />
-      ))}
+      <StarMap />
       {selected && <SelectStar selected={selected} />}
 
       <p className="absolute top-6 center-6 text-white/30 text-xs">
