@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Galaxy from '@/components/Galaxy'
+import Galaxy from '@/components/deco/Galaxy'
 
 export default function LandingPage() {
   return (
