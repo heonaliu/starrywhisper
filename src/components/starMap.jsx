@@ -2,13 +2,14 @@ import { useRef, useState, useEffect } from "react";
 import {
     INITIAL_VALUE,
     ReactSVGPanZoom,
+    TOOL_AUTO,
     TOOL_PAN,
 } from "react-svg-pan-zoom";
 import { listenToAllStars } from "../services/starService";
 
 export function StarMap() {
     const Viewer = useRef(null);
-    const [tool, setTool] = useState(TOOL_PAN);
+    const [tool, setTool] = useState(TOOL_AUTO);
     const [value, setValue] = useState(INITIAL_VALUE);
     const [stars, setStars] = useState([]);
     const [selected, setSelected] = useState(null);
@@ -87,7 +88,7 @@ export function StarMap() {
                         console.log("Star Clicked")
                         setSelected(star);
                     }}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "default" }}
                 />
                 );
             })}
