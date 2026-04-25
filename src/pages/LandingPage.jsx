@@ -28,7 +28,7 @@ export default function LandingPage() {
         </p>
         <Link to="/universe">
           <button className="m-4 px-16 py-3 border-3 justify-center border-white/20 rounded-full text-sm tracking-widest text-white/70 hover:border-white/50 hover:text-white transition-all duration-300 cursor-pointer">
-            enter your universe
+            Enter The Universe
           </button>
         </Link>
       </div>
