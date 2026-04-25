@@ -3,9 +3,9 @@ import Galaxy from '@/components/Galaxy'
 
 export default function LandingPage() {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', background: '#000' }}>
-        
-      <div style={{ position: 'absolute', inset: 0 }}>
+    <div className="relative w-full h-full bg-black">
+
+      <div className="absolute inset-0">
         <Galaxy
           starSpeed={0.1}
           rotationSpeed={0}
@@ -19,37 +19,16 @@ export default function LandingPage() {
         />
       </div>
 
-      {/* Content on top */}
-      <div style={{
-        position: 'relative',
-        zIndex: 10,
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '1rem',
-        color: 'white',
-      }}>
-        <h1 style={{ fontSize: '3rem', fontWeight: 300, letterSpacing: '0.3em' }}>
-          Starwhisper
+      <div className="relative z-10 flex flex-col items-center justify-center h-full gap-4 text-white">
+        <h1 className="text-5xl font-light tracking-widest">
+          StarryWhisper
         </h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', letterSpacing: '0.2em', fontSize: '0.85rem' }}>
-          cast your dream into the dark
+        <p className="text-white/40 text-sm tracking-widest">
+          cast your dream in admist a sky full of aspirations and ambitions
         </p>
         <Link to="/universe">
-          <button style={{
-            marginTop: '1.5rem',
-            padding: '0.7rem 2rem',
-            border: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '9999px',
-            background: 'transparent',
-            color: 'rgba(255,255,255,0.75)',
-            fontSize: '0.85rem',
-            letterSpacing: '0.15em',
-            cursor: 'pointer',
-          }}>
-            Enter the universe
+          <button className="m-4 px-16 py-3 border-3 justify-center border-white/20 rounded-full text-sm tracking-widest text-white/70 hover:border-white/50 hover:text-white transition-all duration-300 cursor-pointer">
+            enter your universe
           </button>
         </Link>
       </div>
