@@ -7,32 +7,39 @@ export default function UniversePage() {
   const { user } = useAuth();
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
   const [save, setSave] = useState(false);
   // save to which database: user or anon ^
 
   async function handleCast() {
-    if (!title.trim()) return; // basically if there's nothing in the title return nothing
+    if ((!title.trim()) && (!desc.trim())) return; // basically if there's nothing in the title return nothing
 
     setSave(true);
     try {
       if (user) {
         //basically if user exists we use the addUserStar else we use addAnonymousStar
+        if (!title.trim()) {
+          setTitle("")
+        } else if (!desc.trim()) {
+          setDesc("")
+        }
         await addUserStar(user.uid, {
           title,
-          desc: "",
+          desc,
           achievement: 1,
           location: "North America",
         });
       } else {
         await addAnonymousStar({
           title,
-          desc: "",
+          desc,
           achievement: 1,
           location: "North America",
         });
       }
-      setTitle("");
       setShowForm(false);
+      setTitle("");
+      setDesc("")
     } catch (err) {
       console.log(err);
     }
@@ -64,6 +71,14 @@ export default function UniversePage() {
               placeholder="What's your dream?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
+            />
+
+            <input
+              type="text"
+              placeholder="What's your story?"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
             />
 
