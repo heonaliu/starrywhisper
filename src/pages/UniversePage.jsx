@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { addUserStar, addAnonymousStar } from "../services/starService";
-
+import StarBornTransition from "../components/StarBornTransition";
 export default function UniversePage() {
   //this line will tell us if we have an existing user logged in or not
   const { user } = useAuth();
@@ -10,18 +10,19 @@ export default function UniversePage() {
   const [desc, setDesc] = useState("");
   const [save, setSave] = useState(false);
   // save to which database: user or anon ^
+  const [showTransition, setShowTransition] = useState(false);
 
   async function handleCast() {
-    if ((!title.trim()) && (!desc.trim())) return; // basically if there's nothing in the title return nothing
+    if (!title.trim() && !desc.trim()) return; // basically if there's nothing in the title return nothing
 
     setSave(true);
     try {
       if (user) {
         //basically if user exists we use the addUserStar else we use addAnonymousStar
         if (!title.trim()) {
-          setTitle("")
+          setTitle("");
         } else if (!desc.trim()) {
-          setDesc("")
+          setDesc("");
         }
         await addUserStar(user.uid, {
           title,
@@ -38,8 +39,9 @@ export default function UniversePage() {
         });
       }
       setShowForm(false);
+      setShowTransition(true);
       setTitle("");
-      setDesc("")
+      setDesc("");
     } catch (err) {
       console.log(err);
     }
@@ -100,6 +102,7 @@ export default function UniversePage() {
           </div>
         </div>
       )}
+      {showTransition && (<StarBornTransition onComplete={() => setShowTransition(false)} />)}
     </div>
   );
 }
