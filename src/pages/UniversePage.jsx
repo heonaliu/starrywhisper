@@ -41,6 +41,9 @@ export default function UniversePage() {
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
+      <p className="absolute top-6 left-6 text-white/30 text-xs">
+        {user ? `signed in as ${user.displayName}` : 'anonymous'}
+      </p>
       <button
         onClick={() => setShowForm(true)}
         className="absolute top-8 left-8 w-10 h-10 rounded-full bg-white text-black text-2xl flex items-center justify-center cursor-pointer"
