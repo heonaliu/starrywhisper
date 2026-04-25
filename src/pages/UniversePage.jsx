@@ -1,10 +1,43 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-
+import { addUserStar, addAnonymousStar } from "../services/starService";
 
 export default function UniversePage() {
-
+  //this line will tell us if we have an existing user logged in or not
+  const { user } = useAuth()
   const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState('')
+  const [save, setSave] = useState(false) 
+  // save to which database: user or anon ^
+
+  async function handleCast() {
+    if (!title.trim()) return // basically if there's nothing in the title return nothing
+
+    setSave(true)
+    try {
+      if (user) { //basically if user exists we use the addUserStar else we use addAnonymousStar
+        await addUserStar(user.uid, {
+          title,
+          desc: '',
+          achievement: 1,
+          location: 'North America'
+        })
+      } else {
+        await addAnonymousStar({
+          title,
+          desc: '',
+          achievement: 1,
+          location: 'North America'
+        })
+      }
+      setTitle('')
+      setShowForm(false)
+    } catch (err) {
+
+      console.log(err)
+    }
+    setSave(false)
+  }
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
