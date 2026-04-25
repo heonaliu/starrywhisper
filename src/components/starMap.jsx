@@ -14,7 +14,6 @@ export function StarMap({onStarSelect}) {
     const [stars, setStars] = useState([]);
     const [selected, setSelected] = useState(null);
 
-
     // Track window size for responsive canvas
     const [size, setSize] = useState({
         width: window.innerWidth,
@@ -32,6 +31,41 @@ export function StarMap({onStarSelect}) {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    // Handle wheel zoom at cursor position
+    const handleWheel = (e) => {
+        if (!Viewer.current) return;
+
+        // Get the viewer's DOM element and its bounding rect
+        const viewerEl = Viewer.current.viewer;
+        if (!viewerEl) return;
+
+        const rect = viewerEl.getBoundingClientRect();
+
+        // Mouse position relative to viewer
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const scaleFactor = e.deltaY < 0 ? 1.1 : 0.9;
+        const newScale = Math.min(Math.max(value.a * scaleFactor, 0.5), 5);
+
+        // Calculate the point in SVG coordinates before zoom
+        const svgX = (mouseX - value.e) / value.a;
+        const svgY = (mouseY - value.f) / value.d;
+
+        // Calculate new translation so the SVG point stays under cursor
+        const newE = mouseX - svgX * newScale;
+        const newF = mouseY - svgY * newScale;
+
+        // Apply the new transform
+        setValue({
+            ...value,
+            a: newScale,
+            d: newScale,
+            e: newE,
+            f: newF,
+        });
+    };
 
     // Load stars
     useEffect(() => {
@@ -54,8 +88,11 @@ export function StarMap({onStarSelect}) {
 
 
     return (
-        <div className="w-full h-full overflow-hidden">
-        <ReactSVGPanZoom
+        <div
+            className="w-full h-full overflow-hidden"
+            onWheel={handleWheel}
+        >
+            <ReactSVGPanZoom
             ref={Viewer}
             width={size.width}
             height={size.height}
@@ -63,13 +100,15 @@ export function StarMap({onStarSelect}) {
             onChangeTool={setTool}
             value={value}
             onChangeValue={(next) => setValue(clampPan(next))}
+            detectWheel={false}
+            detectAutoPan={true}
+            detectPinchGesture={true}
             toolbarProps={{ position: "none" }}
             miniatureProps={{ position: "none" }}
-            detectDoubleClick={true}
-            scaleFactorMin={0.46}
             background="#030212"
             SVGBackground="#060319"
-        >
+            >
+
             <svg width={universeWidth} height={universeHeight}>
             {stars.map((star) => {
                 const size = (star.achievement || 1) * 2 + 2;
