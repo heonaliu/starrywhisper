@@ -47,7 +47,6 @@ export default function LandingPage() {
             onClick={handleGoogleSignIn}
             className="flex items-center gap-3 px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-200 cursor-pointer"
           >
-
             {/* copied and pasted svg for google temporarily - we should find a better logo that is just white (use lucid-react icons or smth) */}
             <svg width="18" height="18" viewBox="0 0 18 18">
               <path
@@ -69,13 +68,14 @@ export default function LandingPage() {
             </svg>
             Continue with Google
           </button>
-        </div>
 
-        <Link to="/universe">
-          <button className="m-4 px-16 py-3 border-3 justify-center border-white/20 rounded-full text-sm tracking-widest text-white/70 hover:border-white/50 hover:text-white transition-all duration-300 cursor-pointer">
-            Enter The Universe
+          <button
+            onClick={handleContinueAnonymously}
+            className="text-xs tracking-widest hover:text-white/60 transition-colors duration-200 cursor-pointer"
+          >
+            Enter the Universe
           </button>
-        </Link>
+        </div>
       </div>
     </div>
   );
