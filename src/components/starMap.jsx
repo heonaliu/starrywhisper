@@ -106,4 +106,7 @@ export function StarMap({onStarSelect}) {
         e: Math.min(Math.max(nextValue.e, -maxX), maxX),
         f: Math.min(Math.max(nextValue.f, -maxY), maxY),
     };
+
+    
 }
+

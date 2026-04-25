@@ -8,7 +8,7 @@ import {
 import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
 import { AddDream } from "../components/AddDream";
-import { StarMap } from "../components/starMap";
+import { StarMap } from "../components/StarMap";
 
 const GLOW = {
   1: "rgba(255,255,255,0.15)",
