@@ -35,3 +35,24 @@ export async function addAnonymousStar({ title, desc, achievement, location }) {
   await setDoc(doc(db, 'anonymous_stars', String(starId)), star)
   return star
 }
+
+export function listenToUserStars(uid, callback) {
+  const q = query(collection(db, 'users', uid, 'stars'), orderBy('star_id'))
+  return onSnapshot(q, (snapshot) => callback(snapshot.docs.map((d) => d.data())))
+  //learned that queries take a request to filter or sort data retrieved from database
+  //essentially onSnapshot returns a document with the data
+}
+
+export function listenToAnonymousStars(callback) {
+  const q = query(collection(db, 'anonymous_stars'), orderBy('star_id'))
+  return onSnapshot(q, (snapshot) => callback(snapshot.docs.map((d) => d.data())))
+  //finds the anonymous user stars onSnapshot
+}
+
+export async function updateUserStar(uid, starId, updates) {
+  await updateDoc(doc(db, 'users', uid, 'stars', String(starId)), updates)
+}
+
+export async function deleteUserStar(uid, starId) {
+  await deleteDoc(doc(db, 'users', uid, 'stars', String(starId)))
+}
