@@ -58,11 +58,16 @@ export function AddDream( {onClose, onSuccess}) {
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
             />
 
-            <input
+            <textarea
               type="text"
               placeholder="What's your story?"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
+              onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = e.target.scrollHeight + "px";
+              }}
+              rows={3}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-lg placeholder-white/20 focus:outline-none mb-4"
             />
 
