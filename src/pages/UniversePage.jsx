@@ -73,7 +73,7 @@ export default function UniversePage() {
       {selected && <SelectStar selected={selected} setSelected={setSelected} />}
 
       <p className="absolute top-6 left-1/2 -translate-x-1/2 text-white/30 text-xs">
-        {user ? `signed in as ${user.displayName}` : "anonymous"}
+        {user ? `signed in as ${user.displayName}` : "anonymous - YOU NEED TO BE SIGNED IN TO GOOGLE TO SEE/EDIT YOUR STARS"}
       </p>
 
       {showForm && (
