@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { FollowCursor } from "../components/FollowCursor";
-import "/src/App.css";
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -23,33 +22,20 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-full bg-black">
-      <img src="/src/assets/land-stars.png" alt=""
-      className="absolute inset-0 w-full h-full object-cover object-center z-0" />
+      <FollowCursor/>
+      <div className="absolute inset-0">
+      </div>
 
-      <img src="/src/assets/land-floor.png" alt=""
-      className = "absolute bottom-0 left-0 right-0 w-full h-full object-cover object-bottom z-[1]" 
-      style = {{ objectFit: "cover" }}/>
-
-      <div className = "absolute inset-0 bg-black/30 z-[2]"/>
-      <div className="relative z-[3] flex flex-col items-center justify-center h-full gap-4 text-white">
-        <img src="/src/assets/queenie-dust.png" alt="" style = {{width: "128px", height: "200px"}} className = "max-w-[10vw] max-h-[20vh] object-contain" />
-        <h1 style = {{ fontFamily: "'Mogra', cursive"}} className="text-5xl font-light tracking-widest">StarryWhisper</h1>
-        <p style = {{fontFamily: "'Courgette', cursive"}} className="text-white/40 text-sm tracking-widest">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full gap-4 text-white">
+        <h1 className="text-5xl font-light tracking-widest">StarryWhisper</h1>
+        <p className="text-white/40 text-sm tracking-widest">
           cast your dream in admist a sky full of aspirations and ambitions
         </p>
 
         <div className="flex flex-col items-center gap-3 mt-6">
           <button
             onClick={handleGoogleSignIn}
-            className="flex items-center gap-3 px-6 py-3 text-white text-sm font-medium rounded-full hover:bg-white/90 hover:text-black transition-all duration-200 cursor-pointer"
-
-            // className="text-xs tracking-widest hover:text-white/60 transition-colors duration-200 cursor-pointer"
-            style = {{
-              paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10,
-              borderRadius: 10, 
-              border: `2px solid ${"white" || "black"}`,
-              // color: isHovered ? "white" : "black"  
-            }}
+            className="flex items-center gap-3 px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-200 cursor-pointer"
           >
             {/* copied and pasted svg for google temporarily - we should find a better logo that is just white (use lucid-react icons or smth) */}
             <svg width="18" height="18" viewBox="0 0 18 18">
@@ -70,14 +56,14 @@ export default function LandingPage() {
                 d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
               />
             </svg>
-            <p style = {{fontFamily: "'Nunito', cursive"}}>Continue with Google</p>
+            Continue with Google
           </button>
 
           <button
             onClick={handleContinueAnonymously}
             className="text-xs tracking-widest hover:text-white/60 transition-colors duration-200 cursor-pointer"
           >
-            <p style = {{fontFamily: "'Nunito', cursive"}}>Enter the Universe</p>
+            Enter the Universe
           </button>
         </div>
       </div>
