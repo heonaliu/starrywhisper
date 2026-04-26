@@ -36,28 +36,27 @@ export function SelectStar({ selected, setSelected }) {
 
   const pulse = PULSE[achievement] || PULSE[1];
 
-  async function handleSave() {
-    setSaving(true);
-    try {
-      await updateUserStar(user.uid, selected.star_id, {
-        title,
-        desc,
-        location,
-        achievement: Math.round(achievement),
-      });
-
-      selected.title = title;
-      selected.desc = desc;
-      selected.location = location;
-      selected.achievement = Math.round(achievement);
-      setSaved(true);
-      setEditing(false);
-      setTimeout(() => setSaved(false), 2500);
-    } catch (err) {
-      console.error(err);
-    }
-    setSaving(false);
+async function handleSave() {
+  setSaving(true);
+  try {
+    await updateUserStar(user.uid, selected.star_id, {
+      title,
+      desc,
+      location,
+      achievement: Math.round(achievement),
+    });
+    selected.title = title;
+    selected.desc = desc;
+    selected.location = location;
+    selected.achievement = Math.round(achievement);
+    setSaved(true);
+    setEditing(false);
+    setTimeout(() => setSaved(false), 2500);
+  } catch (err) {
+    console.error(err);
   }
+  setSaving(false);
+}
 
   const inputCls =
     "w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25 transition-colors";

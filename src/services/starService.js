@@ -81,6 +81,42 @@ export async function addAnonymousStar({ title, desc, achievement, location }) {
   return star;
 }
 
+export async function updateUserStar(uid, starId, updates) {
+  await updateDoc(
+    doc(db, 'users', uid, 'stars', String(starId)),
+    {
+      ...updates,
+      achievement: Math.round(updates.achievement), // always snap to int
+    }
+  )
+  // also ujpdate shared world
+  await updateDoc(
+    doc(db, 'all_stars', String(starId)),
+    {
+      ...updates,
+      achievement: Math.round(updates.achievement),
+    }
+  )
+}
+
+export async function updateAnonymousStar(starId, updates) {
+  await updateDoc(
+    doc(db, 'anonymous_stars', String(starId)),
+    {
+      ...updates,
+      achievement: Math.round(updates.achievement),
+    }
+  )
+
+  await updateDoc(
+    doc(db, 'all_stars', String(starId)),
+    {
+      ...updates,
+      achievement: Math.round(updates.achievement),
+    }
+  )
+}
+
 export function listenToUserStars(uid, callback) {
   const q = query(collection(db, "users", uid, "stars"), orderBy("star_id"));
   return onSnapshot(q, (snapshot) =>
@@ -103,10 +139,6 @@ export function listenToAllStars(callback) {
   return onSnapshot(q, (snapshot) =>
     callback(snapshot.docs.map((d) => d.data())),
   );
-}
-
-export async function updateUserStar(uid, starId, updates) {
-  await updateDoc(doc(db, "users", uid, "stars", String(starId)), updates);
 }
 
 export async function deleteUserStar(uid, starId) {
