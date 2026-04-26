@@ -188,7 +188,7 @@ async function handleSave() {
               </span>
             </div>
 
-            {editing ? (
+            {/* {editing ? (
               <div>
                 <p className="text-white/30 text-xs tracking-widest mb-2">
                   LOCATION
@@ -209,7 +209,7 @@ async function handleSave() {
               <p className="text-white/35 text-xs tracking-widest -mt-2 px-1">
                 {location}
               </p>
-            )}
+            )} */}
 
             <div className="border-t border-white/6" />
 
