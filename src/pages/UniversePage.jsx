@@ -19,6 +19,8 @@ const GLOW = {
   5: "rgba(255,255,255,1.0)",
 };
 
+
+
 export default function UniversePage() {
   //this line will tell us if we have an existing user logged in or not
   const { user } = useAuth();

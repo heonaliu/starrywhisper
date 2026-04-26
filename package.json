@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-public/react-padding": "^5.72.2-alpha.1",
     "firebase": "^12.12.1",
     "gsap": "^3.15.0",
     "motion": "^12.38.0",
@@ -27,11 +28,13 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "^10.5.0",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
-    "tailwindcss": "^4.2.4",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.0.0",
     "vite": "^8.0.10"
   }
 }

@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "../firebase";
-import Galaxy from "@/components/deco/Galaxy";
 import { useAuth } from "../context/AuthContext";
 import { FollowCursor } from "../components/FollowCursor";
 
@@ -25,17 +24,6 @@ export default function LandingPage() {
     <div className="relative w-full h-full bg-black">
       <FollowCursor/>
       <div className="absolute inset-0">
-        <Galaxy
-          starSpeed={0.1}
-          rotationSpeed={0}
-          speed={0.4}
-          hueShift={140}
-          density={1}
-          glowIntensity={0.3}
-          twinkleIntensity={0.3}
-          mouseRepulsion={false}
-          transparent={false}
-        />
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full gap-4 text-white">
