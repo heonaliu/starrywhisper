@@ -8,8 +8,8 @@ import { useEffect } from "react";
 const navItems = [
   { path: "/", label: "Home", icon: Home },
   { icon: Plus, label: "Add Star", action: "add" },
-  { path: "/universe", icon: Star, label: "My Stars", action: "myStars" },
-  { path: "/allStars", icon: Globe, label: "The World", action: "allStars" },
+  { path: "/universe", icon: Globe, label: "The World", action: "myStars" },
+  { path: "/allStars", icon: Star, label: "My Stars", action: "allStars" },
 ];
 
 export default function BottomMenu({

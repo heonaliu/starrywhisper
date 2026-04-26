@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   listenToAllStars,
+  listenToUserStars
 } from "../services/starService";
 import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
@@ -22,27 +23,20 @@ export default function AllStarsPage() {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    const unsub = listenToAllStars((allStars) => {
-      setStars(allStars);
+    if (!user) {
+      navigate("/");
+      return;
+    }
+    const unsub = listenToUserStars(user.uid, (userStars) => {
+      setStars(userStars);
     });
     return () => unsub();
-  }, []);
+  }, [user]);
 
   const handleAddClick = () => {
     setSelected(null)
     setShowForm(true)};
-  const handleHomeClick = () => {
-    setShowAllStars(false);
-    navigate("/");
-  };
-  const handleAllStarClick = () => {
-    if (user) setShowAllStars(true);
-    navigate("/allStars");
-  };
 
-  const handleUserStarsClick = () => {
-    navigate("/universe");
-  };
 
   return (
     <div className="w-full h-full bg-black text-white relative">
@@ -62,8 +56,8 @@ export default function AllStarsPage() {
 
       {selected && <SelectStar selected={selected} setSelected={setSelected} />}
 
-      <p className="absolute top-6 left-1/2 -translate-x-1/2 text-white/30 text-xs">
-        {user ? `signed in as ${user.displayName}` : "anonymous"}
+       <p className="absolute top-6 left-1/2 -translate-x-1/2 text-white/30 text-xs pointer-events-none">
+        {user?.displayName} · {stars.length} star{stars.length !== 1 ? "s" : ""}
       </p>
 
       {showForm && (
