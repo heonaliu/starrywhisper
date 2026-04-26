@@ -182,7 +182,7 @@ async function handleSave() {
             </div>
 
             <div className="flex justify-between text-xs text-white/20 -mt-2 px-1">
-              <span>star #{selected.star_id}</span>
+              {/* <span>star #{selected.star_id}</span> */}
               <span>
                 ({selected.x?.toFixed(2)}, {selected.y?.toFixed(2)})
               </span>
