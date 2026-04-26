@@ -22,6 +22,13 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-full bg-black">
+      <img src="/src/assets/land-stars.png" alt=""
+      className="absolute inset-0 w-full h-full object-cover object-center z-0" />
+
+      <img src="/src/assets/land-floor.png" alt=""
+      className = "absolute bottom-0 left-0 right-0 w-full h-full object-cover object-bottom z-[1]" 
+      style = {{ objectFit: "cover" }}/>
+      
       <FollowCursor/>
       <div className="absolute inset-0">
       </div>
