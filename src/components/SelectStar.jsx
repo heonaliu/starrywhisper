@@ -4,8 +4,6 @@ return (
   <div className = "fixed right-6 z-30 flex flex-col"
     style = {{ top: "12.5%", bottom: "12.5%", width: "320px" }}
   >
-
-
     {/* slide-in animation */}
 
     <style>{`
