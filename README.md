@@ -1,16 +1,22 @@
-# React + Vite
+# StarryWhisper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Though the world is growing ever more populated, loneliness is prevailing at extreme rates... 
 
-Currently, two official plugins are available:
+We're often so caught up "in our own little bubble," as people say, that we don't realize other people are just like us--working hard for their dreams, however big or small. Each one of us has a goal, an aspiration, an ideal in mind, but rarely can you ever just go up to someone and ask them about it. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+StarryWhisper is an open-source website and collection of dreams: read a dream, leave a dream. See what people from all over the world are doing, pursuing, engaging in--how many different perspectives we all have, how many unique goals we've set for ourselves. 
 
-## React Compiler
+## How To Use StarryWhisper
+If you just want to browse anonymously... 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Click "Enter the Universe" and click a random white dot (star) to read someone else's dream.
 
-## Expanding the ESLint configuration
+If you want to save your work...
+- Click "Continue with Google" to log into your Google account and click a random white dot (star) to read someone else's dream.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+If you want to add your own dream to the collection... 
+- Click the "+" button in the upper left-hand corner to write your own dream (make sure to add a title--like a brief overview--and a story. Is there a special reason you're pursuing this dream? Is there something you'd like to elaborate on? Is this dream meaningful to you in some way?)
+- If you've logged in with Google, you can continue to edit the dream even after publishing it. If you are anonymously browsing, you cannot edit or delete your dream after posting it.
+
+
+Made for Hack Club's Athena: Sleepover hackathon in Chicago, April 2026! The theme was "in your dreams."

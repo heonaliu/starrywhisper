@@ -21,8 +21,6 @@ const GLOW = {
   5: "rgba(255,255,255,1.0)",
 };
 
-
-
 export default function UniversePage() {
   const { user } = useAuth();
   const navigate = useNavigate();
