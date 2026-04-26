@@ -4,6 +4,7 @@ import {
   addUserStar,
   addAnonymousStar,
   listenToAllStars,
+  listenToUserStars
 } from "../services/starService";
 import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
