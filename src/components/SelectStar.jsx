@@ -10,10 +10,12 @@ export function SelectStar({ selected, setSelected }) {
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-white text-sm font-medium mb-1">{selected.title}</p>
+            <p className="text-white/50 text-sm font-medium mb-3">{selected.desc}</p>
             <p className="text-white/30 text-xs mb-3">{selected.location}</p>
+
             <div className="flex justify-between text-xs text-white/20">
-              <span>star #{selected.star_id}</span>
-              <span>({selected.x?.toFixed(2)}, {selected.y?.toFixed(2)})</span>
+              {/* <span>star #{selected.star_id}</span> */}
+             {/* <span>({selected.x?.toFixed(2)}, {selected.y?.toFixed(2)})</span> */}
             </div>
             <button
               onClick={() => setSelected(null)}
