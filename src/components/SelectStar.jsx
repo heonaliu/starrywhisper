@@ -4,24 +4,26 @@ import { updateUserStar } from "../services/starService";
 import { ACHIEVEMENT_LABELS, LOCATIONS } from "../constants";
 
 const PULSE = {
-  1: { ring: "w-5 h-5",   duration: "4000ms", opacity: 0.2  },
-  2: { ring: "w-7 h-7",   duration: "3000ms", opacity: 0.38 },
+  1: { ring: "w-5 h-5", duration: "4000ms", opacity: 0.2 },
+  2: { ring: "w-7 h-7", duration: "3000ms", opacity: 0.38 },
   3: { ring: "w-10 h-10", duration: "2200ms", opacity: 0.58 },
   4: { ring: "w-14 h-14", duration: "1400ms", opacity: 0.78 },
-  5: { ring: "w-20 h-20", duration: "800ms",  opacity: 1.0  },
+  5: { ring: "w-20 h-20", duration: "800ms", opacity: 1.0 },
 };
 
 export function SelectStar({ selected, setSelected }) {
   const { user } = useAuth();
   const isOwner = user && user.uid === selected.uid;
 
-  const [editing,setEditing]= useState(false);
-  const [saving,setSaving]= useState(false);
-  const [saved,setSaved]= useState(false);
-  const [title,setTitle]= useState(selected.title||"");
-  const [desc,setDesc] = useState(selected.desc||"");
-  const [location,setLocation]= useState(selected.location||"North America");
-  const [achievement,setAchievement] = useState(selected.achievement || 1);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [title, setTitle] = useState(selected.title || "");
+  const [desc, setDesc] = useState(selected.desc || "");
+  const [location, setLocation] = useState(
+    selected.location || "North America",
+  );
+  const [achievement, setAchievement] = useState(selected.achievement || 1);
 
   useEffect(() => {
     setTitle(selected.title || "");
@@ -46,7 +48,7 @@ export function SelectStar({ selected, setSelected }) {
 
       selected.title = title;
       selected.desc = desc;
-      selected.location= location;
+      selected.location = location;
       selected.achievement = Math.round(achievement);
       setSaved(true);
       setEditing(false);
@@ -105,17 +107,18 @@ export function SelectStar({ selected, setSelected }) {
         className="star-card fixed right-5 z-50 flex flex-col"
         style={{ top: "10%", bottom: "10%", width: 310 }}
       >
-        <div className="bg-[#0c0c18] border border-white/8 rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden">
-
-          <div className="flex-1 overflow-y-auto pt-8 pb-4 flex flex-col gap-5" style={{ paddingLeft: 24, paddingRight: 24 }}>
-
+        <div className="bg-[#0c0c18] border  pt-12 border-white/8 rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden">
+          <div
+            className="flex-1 overflow-y-auto pt-10 pb-4 flex flex-col gap-5"
+            style={{ paddingLeft: 24, paddingRight: 24 }}
+          >
             <div className="flex justify-center">
               <div className="relative flex items-center justify-center w-6 h-6">
                 <div
                   className={`pr1 absolute rounded-full border ${pulse.ring}`}
                   style={{
                     borderColor: `rgba(255,255,255,${pulse.opacity})`,
-                    "--op":  pulse.opacity,
+                    "--op": pulse.opacity,
                     "--dur": pulse.duration,
                   }}
                 />
@@ -124,11 +127,11 @@ export function SelectStar({ selected, setSelected }) {
                   className={`pr2 absolute rounded-full border ${pulse.ring}`}
                   style={{
                     borderColor: `rgba(255,255,255,${pulse.opacity * 0.55})`,
-                    "--op":  pulse.opacity,
+                    "--op": pulse.opacity,
                     "--dur": pulse.duration,
                   }}
                 />
-                
+
                 <div
                   className="relative z-10 w-2 h-2 rounded-full bg-white"
                   style={{
@@ -138,53 +141,68 @@ export function SelectStar({ selected, setSelected }) {
               </div>
             </div>
 
-            {editing ? (
-              <input
-                className={inputCls}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Dream title"
-                style={{ fontSize: 15, fontWeight: 600 }}
-              />
-            ) : (
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-3">
-                  <p className="text-white font-semibold text-base tracking-wide leading-snug">
-                    {title}
-                  </p>
+            <div className="relative pt-16">
+              {editing ? (
+                <input
+                  className={inputCls}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Dream title"
+                  style={{ fontSize: 15, fontWeight: 600 }}
+                />
+              ) : (
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-3">
+                    <p className="text-white font-semibold text-base tracking-wide leading-snug">
+                      {title}
+                    </p>
+                  </div>
+                  {isOwner && (
+                    <button
+                      onClick={() => setEditing(true)}
+                      className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-white/30 hover:text-white/70 hover:border-white/30 transition-colors cursor-pointer"
+                      title="Edit dream"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
-                {/* pencil — only owner sees this */}
-                {isOwner && (
-                  <button
-                    onClick={() => setEditing(true)}
-                    className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-white/30 hover:text-white/70 hover:border-white/30 transition-colors cursor-pointer"
-                    title="Edit dream"
-                  >
-                    {/* pencil svg */}
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                )}
-              </div>
-            )}
+              )}
+            </div>
 
             <div className="flex justify-between text-xs text-white/20 -mt-2 px-1">
               <span>star #{selected.star_id}</span>
-              <span>({selected.x?.toFixed(2)}, {selected.y?.toFixed(2)})</span>
+              <span>
+                ({selected.x?.toFixed(2)}, {selected.y?.toFixed(2)})
+              </span>
             </div>
 
             {editing ? (
               <div>
-                <p className="text-white/30 text-xs tracking-widest mb-2">LOCATION</p>
+                <p className="text-white/30 text-xs tracking-widest mb-2">
+                  LOCATION
+                </p>
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className={`${inputCls} star-select`}
                 >
                   {LOCATIONS.map((loc) => (
-                    <option key={loc} value={loc}>{loc}</option>
+                    <option key={loc} value={loc}>
+                      {loc}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -194,11 +212,12 @@ export function SelectStar({ selected, setSelected }) {
               </p>
             )}
 
-
             <div className="border-t border-white/6" />
 
             <div>
-              <p className="text-white/30 text-xs tracking-widest mb-3">STORY</p>
+              <p className="text-white/30 text-xs tracking-widest mb-3">
+                STORY
+              </p>
               {editing ? (
                 <textarea
                   rows={4}
@@ -211,22 +230,36 @@ export function SelectStar({ selected, setSelected }) {
               ) : desc ? (
                 <p className="text-white/60 text-sm leading-relaxed">{desc}</p>
               ) : (
-                <p className="text-white/20 text-sm italic">no story written for this star.</p>
+                <p className="text-white/20 text-sm italic">
+                  no story written for this star.
+                </p>
               )}
             </div>
 
             {/* ── achievement slider ─────────────────────────── */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/30 text-xs tracking-widest">PROGRESS</p>
+                <p className="text-white/30 text-xs tracking-widest">
+                  PROGRESS
+                </p>
                 <div className="flex items-center gap-1.5">
                   {/* star icon */}
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)" className="shrink-0">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="rgba(255,255,255,0.6)"
+                    className="shrink-0"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
-                  <span className="text-white/60 text-xs font-medium">{achievement}</span>
+                  <span className="text-white/60 text-xs font-medium">
+                    {achievement}
+                  </span>
                   <span className="text-white/25 text-xs">·</span>
-                  <span className="text-white/40 text-xs">{ACHIEVEMENT_LABELS[achievement]}</span>
+                  <span className="text-white/40 text-xs">
+                    {ACHIEVEMENT_LABELS[achievement]}
+                  </span>
                 </div>
               </div>
 
@@ -234,20 +267,30 @@ export function SelectStar({ selected, setSelected }) {
               <div className="relative px-1">
                 <input
                   type="range"
-                  min="1" max="5" step="1"
+                  min="1"
+                  max="5"
+                  step="1"
                   value={achievement}
                   onChange={(e) => setAchievement(Number(e.target.value))}
                   disabled={!editing}
                   className="ach-slider"
-                  style={{ opacity: editing ? 1 : 0.5, pointerEvents: editing ? 'auto' : 'none' }}
+                  style={{
+                    opacity: editing ? 1 : 0.5,
+                    pointerEvents: editing ? "auto" : "none",
+                  }}
                 />
                 {/* tick marks */}
                 <div className="flex justify-between mt-1.5 px-0.5">
-                  {[1,2,3,4,5].map((n) => (
+                  {[1, 2, 3, 4, 5].map((n) => (
                     <span
                       key={n}
                       className="text-xs"
-                      style={{ color: n <= achievement ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.15)' }}
+                      style={{
+                        color:
+                          n <= achievement
+                            ? "rgba(255,255,255,0.5)"
+                            : "rgba(255,255,255,0.15)",
+                      }}
                     >
                       {n}
                     </span>
@@ -255,8 +298,8 @@ export function SelectStar({ selected, setSelected }) {
                 </div>
               </div>
             </div>
-
-          </div>{/* end scrollable body */}
+          </div>
+          {/* end scrollable body */}
 
           {/* ── footer actions ───────────────────────────────── */}
           <div className="px-6 pb-6 p-2 flex flex-col gap-2 border-t border-white/6 mt-1">
@@ -298,7 +341,6 @@ export function SelectStar({ selected, setSelected }) {
               </p>
             )}
           </div>
-
         </div>
       </div>
     </>
