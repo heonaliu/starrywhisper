@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { FollowCursor } from "../components/FollowCursor";
+import queen from "../assets/queenie.png"
+import starLand from "../assets/land-stars.png"
+import floor from "../assets/land-floor.png"
+import queenDust from "../assets/queenie-dust.png"
 import "/src/App.css";
 import { useState } from "react";
 
@@ -31,10 +35,10 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-full bg-black">
-      <img src="/src/assets/land-stars.png" alt=""
+      <img src={starLand} alt=""
         className="absolute inset-0 w-full h-full object-cover object-center z-0" />
 
-      <img src="/src/assets/land-floor.png" alt=""
+      <img src={floor} alt=""
         className="absolute bottom-0 left-0 right-0 w-full object-cover object-bottom z-[1]"
         style={{ objectFit: "cover" }} />
 
@@ -51,7 +55,7 @@ export default function LandingPage() {
       />
 
       <div className="relative z-[3] flex flex-col items-center justify-center h-full gap-4 text-white">
-        <img src="/src/assets/queenie-dust.png" alt=""
+        <img src={queenDust} alt=""
           style={{ width: "128px", height: "200px" }}
           className="max-w-[10vw] max-h-[20vh] object-contain" />
 
