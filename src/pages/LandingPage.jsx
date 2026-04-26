@@ -35,10 +35,13 @@ export default function LandingPage() {
 
       <div className = "absolute inset-0 bg-black/30 z-[2]"/>
       <div className="relative z-[3] flex flex-col items-center justify-center h-full gap-4 text-white">
+        
         <img src="/src/assets/queenie-dust.png" alt="" style = {{width: "128px", height: "200px"}} className = "max-w-[10vw] max-h-[20vh] object-contain" />
+        
         <h1 style = {{ fontFamily: "'Mogra', cursive"}} className="text-5xl font-light tracking-widest">StarryWhisper</h1>
+        
         <p style = {{fontFamily: "'Courgette', cursive"}} className="text-white/40 text-sm tracking-widest">
-          cast your dream in admist a sky full of aspirations and ambitions
+          cast your dream in amidst a sky full of aspirations and ambitions
         </p>
 
         <div className="flex flex-col items-center gap-3 mt-6">
