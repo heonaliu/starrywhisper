@@ -1,20 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Plus, Star } from "lucide-react";
+import { Globe, Home, Plus, Star } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 const navItems = [
   { path: "/", label: "Home", icon: Home },
   { icon: Plus, label: "Add Star", action: "add" },
-  { icon: Star, label: "My Stars", action: "myStars"}
+  { path: "/universe",  icon: Star, label: "My Stars", action: "myStars" },
+  { path: "/allStars", icon: Globe, label: "The World", action: "allStars" },
 ];
 
-export default function BottomMenu({ onAddClick, onMyStarsClick }) {
-  const [hoveredIdx, setHoveredIdx] = useState(null);
+export default function BottomMenu({ onAddClick, onMyStarsClick, onAllStarsClick, onHomeClick }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  function handleClick(item) {
+    switch (item.action) {
+      case "add":      return onAddClick?.();
+      case "myStars":  return onMyStarsClick?.();
+      case "allStars": return onAllStarsClick?.();
+      case "home":     return onHomeClick?.() ?? navigate("/");
+      default:         return item.path && navigate(item.path);
+    }
+  }
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
@@ -37,21 +48,16 @@ export default function BottomMenu({ onAddClick, onMyStarsClick }) {
             <div key={item.label} className="flex items-center">
               <button
                 onClick={() => {
-                  if (item.action === "add") {
-                    onAddClick?.();
-                  } else if (item.action == "myStars") {
-                    onMyStarsClick?.()
-                  } else {
-                    navigate(item.path);
+                    handleClick(item)
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
-                }}
+                }
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 className={`
                   group relative flex items-center justify-center
                   rounded-full transition-all duration-300
-
+                  
                   ${
                     isActive
                       ? "bg-white text-black shadow-md scale-110"

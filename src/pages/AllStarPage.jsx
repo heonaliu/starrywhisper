@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
-  addUserStar,
-  addAnonymousStar,
   listenToAllStars,
-  listenToUserStars
 } from "../services/starService";
 import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
@@ -14,45 +11,38 @@ import { FollowCursor } from "../components/FollowCursor";
 import BottomMenu from "../components/ui/bottom-menu";
 import { useNavigate } from "react-router-dom";
 
-const GLOW = {
-  1: "rgba(255,255,255,0.15)",
-  2: "rgba(255,255,255,0.35)",
-  3: "rgba(255,255,255,0.55)",
-  4: "rgba(255,255,255,0.75)",
-  5: "rgba(255,255,255,1.0)",
-};
-
-export default function UniversePage() {
+export default function AllStarsPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   const [showForm, setShowForm] = useState(false);
   const [showTransition, setShowTransition] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [showUserStars, setShowUserStars] = useState(false);
+  const [showAllStars, setShowAllStars] = useState(false);
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    let unsub;
+    const unsub = listenToAllStars((allStars) => {
+      setStars(allStars);
+    });
+    return () => unsub();
+  }, []);
 
-    if (showUserStars && user) {
-      unsub = listenToUserStars(user.uid, setStars);
-    } else {
-      unsub = listenToAllStars(setStars);
-    }
-
-    return () => unsub && unsub();
-  }, [showUserStars, user]);
-
-  const handleAddClick = () => setShowForm(true);
+  const handleAddClick = () => {
+    setSelected(null)
+    setShowForm(true)};
   const handleHomeClick = () => {
-    setShowUserStars(false);
+    setShowAllStars(false);
     navigate("/");
   };
-  const handleMyStarsClick = () => {
-    if (user) setShowUserStars(true);
+  const handleAllStarClick = () => {
+    if (user) setShowAllStars(true);
+    navigate("/allStars");
   };
-  const handleAllStarClick = () => navigate("/allStars")
+
+  const handleUserStarsClick = () => {
+    navigate("/universe");
+  };
 
   return (
     <div className="w-full h-full bg-black text-white relative">
@@ -67,8 +57,8 @@ export default function UniversePage() {
           <BottomMenu
             onAddClick={handleAddClick}
             onHomeClick={handleHomeClick}
-            onMyStarsClick={handleMyStarsClick}
-            onAllStarClick = {handleAllStarClick}
+            onMyStarsClick={handleUserStarsClick}
+            onAllStarsClick={handleAllStarClick}
           />
         </div>
       </div>
@@ -95,5 +85,3 @@ export default function UniversePage() {
     </div>
   );
 }
-
-
