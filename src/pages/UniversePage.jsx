@@ -9,6 +9,7 @@ import StarBornTransition from "../components/StarBornTransition";
 import { SelectStar } from "../components/SelectStar";
 import { AddDream } from "../components/AddDream";
 import { StarMap } from "../components/starMap";
+import { FollowCursor } from "../components/FollowCursor";
 
 const GLOW = {
   1: "rgba(255,255,255,0.15)",
@@ -38,6 +39,7 @@ export default function UniversePage() {
 
   return (
     <div className="w-full h-full bg-black flex items-center justify-center text-white">
+      <FollowCursor/>
       <StarMap onStarSelect={setSelected} />
       {selected && <SelectStar selected={selected} setSelected={setSelected}/>}
 

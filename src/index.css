@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "mouse-follower/dist/mouse-follower.min.css";
 
 @layer base {
   html, body, #root {
@@ -8,4 +9,25 @@
     overflow: hidden;
     background: #000;
   }
+}
+
+
+.mf-cursor {
+  mix-blend-mode: normal;
+  pointer-events: none;
+  color: transparent;
+}
+
+.mf-cursor-media {
+  width: 5rem;
+  height: 5rem;
+  opacity: 1;
+  transform: translate(250%, 250%);
+}
+
+.mf-cursor-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }

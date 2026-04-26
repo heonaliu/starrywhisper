@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "../firebase";
 import Galaxy from "@/components/deco/Galaxy";
 import { useAuth } from "../context/AuthContext";
+import { FollowCursor } from "../components/FollowCursor";
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-full bg-black">
+      <FollowCursor/>
       <div className="absolute inset-0">
         <Galaxy
           starSpeed={0.1}
