@@ -8,22 +8,26 @@ import { useEffect } from "react";
 const navItems = [
   { path: "/", label: "Home", icon: Home },
   { icon: Plus, label: "Add Star", action: "add" },
-  { path: "/universe",  icon: Star, label: "My Stars", action: "myStars" },
+  { path: "/universe", icon: Star, label: "My Stars", action: "myStars" },
   { path: "/allStars", icon: Globe, label: "The World", action: "allStars" },
 ];
 
-export default function BottomMenu({ onAddClick, onMyStarsClick, onAllStarsClick, onHomeClick }) {
+export default function BottomMenu({
+  onAddClick,
+  onMyStarsClick,
+  onAllStarsClick,
+  onHomeClick,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
   function handleClick(item) {
-    switch (item.action) {
-      case "add":      return onAddClick?.();
-      case "myStars":  return onMyStarsClick?.();
-      case "allStars": return onAllStarsClick?.();
-      case "home":     return onHomeClick?.() ?? navigate("/");
-      default:         return item.path && navigate(item.path);
+    if (item.action === "add") {
+      onAddClick?.();
+    } else if (item.path) {
+      navigate(item.path);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
 
@@ -48,10 +52,9 @@ export default function BottomMenu({ onAddClick, onMyStarsClick, onAllStarsClick
             <div key={item.label} className="flex items-center">
               <button
                 onClick={() => {
-                    handleClick(item)
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }
-                }
+                  handleClick(item);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 className={`

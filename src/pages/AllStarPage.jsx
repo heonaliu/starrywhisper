@@ -56,9 +56,6 @@ export default function AllStarsPage() {
         <div className="pointer-events-auto">
           <BottomMenu
             onAddClick={handleAddClick}
-            onHomeClick={handleHomeClick}
-            onMyStarsClick={handleUserStarsClick}
-            onAllStarsClick={handleAllStarClick}
           />
         </div>
       </div>

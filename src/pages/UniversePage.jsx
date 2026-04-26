@@ -66,9 +66,6 @@ export default function UniversePage() {
         <div className="pointer-events-auto">
           <BottomMenu
             onAddClick={handleAddClick}
-            onHomeClick={handleHomeClick}
-            onMyStarsClick={handleMyStarsClick}
-            onAllStarClick = {handleAllStarClick}
           />
         </div>
       </div>
