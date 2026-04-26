@@ -29,6 +29,10 @@ export default function LandingPage() {
       <img src="/src/assets/land-floor.png" alt=""
       className = "absolute bottom-0 left-0 right-0 w-full h-full object-cover object-bottom z-[1]" 
       style = {{ objectFit: "cover" }}/>
+      
+      <FollowCursor/>
+      <div className="absolute inset-0">
+      </div>
 
       <div className = "absolute inset-0 bg-black/30 z-[2]"/>
       <div className="relative z-[3] flex flex-col items-center justify-center h-full gap-4 text-white">
