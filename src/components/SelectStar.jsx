@@ -259,7 +259,7 @@ export function SelectStar({ selected, setSelected }) {
           </div>{/* end scrollable body */}
 
           {/* ── footer actions ───────────────────────────────── */}
-          <div className="px-6 pb-6 pt-2 flex flex-col gap-2 border-t border-white/6 mt-1">
+          <div className="px-6 pb-6 p-2 flex flex-col gap-2 border-t border-white/6 mt-1">
             {editing && (
               <button
                 onClick={handleSave}
@@ -293,7 +293,7 @@ export function SelectStar({ selected, setSelected }) {
               </button>
             )}
             {saved && !editing && (
-              <p className="text-center text-xs text-white/30 tracking-wider">
+              <p className="text-center text-xs p-5 text-white/30 tracking-wider">
                 ✦ star updated
               </p>
             )}
