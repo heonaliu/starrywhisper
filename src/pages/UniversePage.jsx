@@ -10,6 +10,8 @@ import { SelectStar } from "../components/SelectStar";
 import { AddDream } from "../components/AddDream";
 import { StarMap } from "../components/starMap";
 import { FollowCursor } from "../components/FollowCursor";
+import BottomMenu from "../components/ui/bottom-menu";
+import { useNavigate } from "react-router-dom";
 
 const GLOW = {
   1: "rgba(255,255,255,0.15)",
@@ -22,38 +24,60 @@ const GLOW = {
 
 
 export default function UniversePage() {
-  //this line will tell us if we have an existing user logged in or not
   const { user } = useAuth();
-  const [showForm, setShowForm] = useState(false);
-  const [save, setSave] = useState(false);
-  // save to which database: user or anon ^
-  const [showTransition, setShowTransition] = useState(false);
-  const [stars, setStars] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
-  // this is for all stars:
+  const [showForm, setShowForm] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [showUserStars, setShowUserStars] = useState(false);
+  const [stars, setStars] = useState([]);
+
   useEffect(() => {
-    const unsub = listenToAllStars((allStars) => {
-      setStars(allStars);
-    });
-    return () => unsub();
-  }, []);
+    let unsub;
+
+    if (showUserStars && user) {
+      unsub = listenToUserStars(user.uid, setStars);
+    } else {
+      unsub = listenToAllStars(setStars);
+    }
+
+    return () => unsub && unsub();
+  }, [showUserStars, user]);
+
+  const handleAddClick = () => setShowForm(true);
+  const handleHomeClick = () => {
+    setShowUserStars(false);
+    navigate("/");
+  };
+  const handleMyStarsClick = () => {
+    if (user) setShowUserStars(true);
+  };
 
   return (
-    <div className="w-full h-full bg-black flex items-center justify-center text-white">
-      <FollowCursor/>
-      <StarMap onStarSelect={setSelected} />
-      {selected && <SelectStar selected={selected} setSelected={setSelected}/>}
+    <div className="w-full h-full bg-black text-white relative">
+      <FollowCursor />
 
-      <p className="absolute top-6 center-6 text-white/30 text-xs">
+      <div className="absolute inset-0">
+        <StarMap stars={stars} onStarSelect={setSelected} />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
+        <div className="pointer-events-auto">
+          <BottomMenu
+            onAddClick={handleAddClick}
+            onHomeClick={handleHomeClick}
+            onMyStarsClick={handleMyStarsClick}
+          />
+        </div>
+      </div>
+
+      {selected && <SelectStar selected={selected} setSelected={setSelected} />}
+
+      <p className="absolute top-6 left-1/2 -translate-x-1/2 text-white/30 text-xs">
         {user ? `signed in as ${user.displayName}` : "anonymous"}
       </p>
-      <button
-        onClick={() => setShowForm(true)}
-        className="absolute top-8 left-8 w-10 h-10 rounded-full bg-white text-black text-2xl flex items-center justify-center cursor-pointer"
-      >
-        +
-      </button>
+
       {showForm && (
         <AddDream
           onClose={() => setShowForm(false)}
@@ -63,9 +87,12 @@ export default function UniversePage() {
           }}
         />
       )}
+
       {showTransition && (
         <StarBornTransition onComplete={() => setShowTransition(false)} />
       )}
     </div>
   );
 }
+
+

@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@element-public/react-padding": "^5.72.2-alpha.1",
+    "@hugeicons/core-free-icons": "^4.1.1",
+    "@hugeicons/react": "^1.1.6",
+    "clsx": "^2.1.1",
     "firebase": "^12.12.1",
     "gsap": "^3.15.0",
+    "lucide-react": "^1.11.0",
     "motion": "^12.38.0",
     "mouse-follower": "^1.1.2",
     "ogl": "^1.0.11",
@@ -20,7 +24,9 @@
     "react-dom": "^19.2.5",
     "react-image-follow": "^1.2.2",
     "react-router-dom": "^7.14.2",
-    "react-svg-pan-zoom": "^3.13.1"
+    "react-svg-pan-zoom": "^3.13.1",
+    "react-use-measure": "^2.1.7",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
