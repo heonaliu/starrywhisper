@@ -20,3 +20,4 @@ If you want to add your own dream to the collection...
 
 
 Made for Hack Club's Athena: Sleepover hackathon in Chicago, April 2026! The theme was "in your dreams."
+![preview of explore page](https://i.gyazo.com/a9423972502b07e9ab13e18ae84c0933.png)
