@@ -15,7 +15,7 @@ If you want to save your work...
 - Click "Continue with Google" to log into your Google account and click a random white dot (star) to read someone else's dream.
 
 If you want to add your own dream to the collection... 
-- Click the "+" button in the upper left-hand corner to write your own dream (make sure to add a title--like a brief overview--and a story. Is there a special reason you're pursuing this dream? Is there something you'd like to elaborate on? Is this dream meaningful to you in some way?)
+- Click the "+" button in the bottom toolbar to write your own dream (make sure to add a title--like a brief overview--and a story. Is there a special reason you're pursuing this dream? Is there something you'd like to elaborate on? Is this dream meaningful to you in some way?)
 - If you've logged in with Google, you can continue to edit the dream even after publishing it. If you are anonymously browsing, you cannot edit or delete your dream after posting it.
 
 
